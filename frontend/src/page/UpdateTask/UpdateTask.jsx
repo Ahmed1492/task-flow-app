@@ -42,7 +42,7 @@ const UpdateTask = () => {
 
   useEffect(() => {
     if (!updatedTask) return navigate("/");
-  }, []);
+  }, [navigate ,updatedTask]);
   return (
     <div className="py-6 min-h-[94vh] px-4">
       <h2 className="text-2xl mt-[5rem] font-semibold text-center mb-6">

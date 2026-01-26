@@ -19,7 +19,7 @@ const CompletedTasks = ({ allTasks, getData, setAllTasks }) => {
 
   useEffect(() => {
     getData(`${decodeToken().id}/completed`);
-  }, []);
+  }, [getData]);
 
   return (
     <div className="px-5">

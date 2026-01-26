@@ -19,7 +19,7 @@ const DeferredTasks = ({ allTasks, getData, setAllTasks }) => {
 
   useEffect(() => {
     getData(`${decodeToken().id}/deferred`);
-  }, []);
+  }, [getData]);
 
   return (
     <div>

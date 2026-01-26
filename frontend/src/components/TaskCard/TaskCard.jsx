@@ -74,7 +74,7 @@ const TaskCard = ({ allTasks, setAllTasks }) => {
       console.log(error);
     }
   };
-  if (allTasks?.status == 404) return <NoTasks />;
+  if (allTasks?.status === 404) return <NoTasks />;
   if (!allTasks) return <NoTasks />;
   // if (allTasks.length == 0) return <NoTasks />;
 

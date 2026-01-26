@@ -18,7 +18,7 @@ const PendingTasks = ({ allTasks, getData, setAllTasks }) => {
 
   useEffect(() => {
     getData(`${decodeToken().id}/pending`);
-  }, []);
+  }, [getData]);
 
   return (
     <div>

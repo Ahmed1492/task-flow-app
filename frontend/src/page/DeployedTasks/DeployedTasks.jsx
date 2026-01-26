@@ -19,7 +19,7 @@ const DeployedTasks = ({ allTasks, getData, setAllTasks }) => {
 
   useEffect(() => {
     getData(`${decodeToken().id}/deployed`);
-  }, []);
+  }, [getData]);
 
   return (
     <div>

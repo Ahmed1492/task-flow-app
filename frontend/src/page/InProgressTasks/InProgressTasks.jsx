@@ -19,7 +19,7 @@ const InProgressTasks = ({ allTasks, getData, setAllTasks }) => {
 
   useEffect(() => {
     getData(`${decodeToken().id}/inProgress`);
-  }, []);
+  }, [getData]);
 
   return (
     <div>
