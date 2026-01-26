@@ -19,7 +19,7 @@ const DeferredTasks = ({ allTasks, getData, setAllTasks }) => {
   };
 
   useEffect(() => {
-    getData(`http://localhost:2000/tasks/${decodeToken().id}/deferred`);
+    getData(`${decodeToken().id}/deferred`);
   }, []);
 
   return (

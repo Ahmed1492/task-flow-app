@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import LoginComp from "../../components/Login/Login";
 import Register from "../Register/Register";
 import RegisterComp from "../../components/RegisterComp/RegisterComp";
+import { useAppContext } from "../../context/appContext";
 
 const Login = ({ onLogin }) => {
   const [userLogin, setUserLogin] = useState({
     email: "",
     password: "",
   });
+  const { backEndUrl } = useAppContext();
 
   const [error, setError] = useState(null);
   const [mode, setMode] = useState("login");
@@ -29,10 +31,11 @@ const Login = ({ onLogin }) => {
       if (!userLogin.email || !userLogin.password) {
         return setError("All Fields Are Required!");
       }
-      const response = await axios.post(
-        "http://localhost:2000/login",
-        userLogin
-      );
+      const response = await axios.post(`${backEndUrl}/login`, userLogin, {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      });
       console.log(response);
 
       if (response.status === 200) {

@@ -1,5 +1,4 @@
 import { jwtDecode } from "jwt-decode";
-import React from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 
 const LeftBar = () => {

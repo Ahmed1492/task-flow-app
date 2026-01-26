@@ -19,7 +19,7 @@ const PendingTasks = ({ allTasks, getData, setAllTasks }) => {
   };
 
   useEffect(() => {
-    getData(`http://localhost:2000/tasks/${decodeToken().id}/pending`);
+    getData(`${decodeToken().id}/pending`);
   }, []);
 
   return (

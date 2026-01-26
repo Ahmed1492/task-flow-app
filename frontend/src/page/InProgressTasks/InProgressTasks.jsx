@@ -19,7 +19,7 @@ const InProgressTasks = ({ allTasks, getData, setAllTasks }) => {
   };
 
   useEffect(() => {
-    getData(`http://localhost:2000/tasks/${decodeToken().id}/inProgress`);
+    getData(`${decodeToken().id}/inProgress`);
   }, []);
 
   return (

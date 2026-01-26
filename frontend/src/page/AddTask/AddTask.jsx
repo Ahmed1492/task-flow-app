@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { userTokenId } from "../../components/DecodeToken/DecodeToken";
 import { jwtDecode } from "jwt-decode";
+import { useAppContext } from "../../context/appContext";
 
 const AddTask = () => {
   const decodeToken = () => {
@@ -16,6 +17,8 @@ const AddTask = () => {
       return null;
     }
   };
+
+  const { backEndUrl } = useAppContext();
 
   const [task, setTask] = useState({
     title: "",
@@ -47,7 +50,11 @@ const AddTask = () => {
       if (!task.title || !task.content || !task.type || !task.userId) {
         return setError("All Fields Required");
       }
-      let myResponse = await axios.post("http://localhost:2000/task", task);
+      let myResponse = await axios.post(`${backEndUrl}/task`, task, {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      });
 
       if (myResponse.status === 201) {
         setRespose(myResponse.data.message);

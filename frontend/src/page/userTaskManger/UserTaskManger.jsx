@@ -10,17 +10,21 @@ import InProgressTasks from "../InProgressTasks/InProgressTasks";
 import PendingTasks from "../PendingTasks/PendingTasks";
 import axios from "axios";
 import UpdateTask from "../UpdateTask/UpdateTask";
-import Login from "../Login/Login";
-import Register from "../Register/Register";
 import {} from "../../components/DecodeToken/DecodeToken";
 import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute";
+import { useAppContext } from "../../context/appContext";
 
 const UserTaskManger = () => {
   const [allTasks, setAllTasks] = useState([]);
+  const { backEndUrl } = useAppContext();
 
-  const getData = async (url) => {
+  const getData = async (endPoint) => {
     try {
-      let myResponse = await axios.get(url);
+      let myResponse = await axios.get(`${backEndUrl}/tasks/${endPoint}`, {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      });
       console.log(
         "response : ",
         myResponse.data.result ? myResponse.data.result : myResponse.data,
@@ -124,11 +128,7 @@ const UserTaskManger = () => {
               path="/updateTask"
               element={
                 <ProtectedRoute>
-                  <UpdateTask
-                    getData={getData}
-                    setAllTasks={setAllTasks}
-                    allTasks={allTasks}
-                  />
+                  <UpdateTask setAllTasks={setAllTasks} allTasks={allTasks} />
                 </ProtectedRoute>
               }
             />

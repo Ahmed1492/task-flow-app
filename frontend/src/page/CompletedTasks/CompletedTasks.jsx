@@ -19,7 +19,7 @@ const CompletedTasks = ({ allTasks, getData, setAllTasks }) => {
   };
 
   useEffect(() => {
-    getData(`http://localhost:2000/tasks/${decodeToken().id}/completed`);
+    getData(`${decodeToken().id}/completed`);
   }, []);
 
   return (

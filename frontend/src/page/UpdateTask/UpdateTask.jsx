@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppContext } from "../../context/appContext";
 
 const UpdateTask = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [updatedTask, setUpdatedTask] = useState(location.state?.task);
+  const { backEndUrl } = useAppContext();
+
   const collectDate = (e) => {
     try {
       let key = e.target.name;
@@ -22,8 +25,13 @@ const UpdateTask = () => {
   const handleUpdate = async () => {
     try {
       let myResponse = await axios.patch(
-        `http://localhost:2000/task/${updatedTask._id}`,
-        updatedTask
+        `${backEndUrl}/task/${updatedTask._id}`,
+        updatedTask,
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
+        },
       );
       console.log(myResponse.status);
       if (myResponse.status === 200) navigate("/");

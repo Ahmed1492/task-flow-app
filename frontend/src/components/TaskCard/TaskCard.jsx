@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./TaskCard.scss";
 import { useNavigate } from "react-router-dom";
 import NoTasks from "../NoTasks/NoTasks";
 import axios from "axios";
+import { useAppContext } from "../../context/appContext";
 const TaskCard = ({ allTasks, setAllTasks }) => {
   const [isOpenMenue, setIsOpenMenue] = useState({
     id: "",
     isOpen: false,
   });
+  const { backEndUrl } = useAppContext();
 
   const navigate = useNavigate();
   const getStatusColor = (task) => {
@@ -65,7 +67,7 @@ const TaskCard = ({ allTasks, setAllTasks }) => {
 
   const handleDelete = async (task) => {
     try {
-      await axios.delete(`http://localhost:2000/task/${task._id}`);
+      await axios.delete(`${backEndUrl}/task/${task._id}`);
       setAllTasks((prev) => prev.filter((t) => t._id !== task._id));
       setIsOpenMenue({ id: "", isOpen: false });
     } catch (error) {

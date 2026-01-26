@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useAppContext } from "../../context/appContext";
 
 const RegisterComp = ({ navigate, setMode }) => {
   const [userRegister, setUserRegister] = useState({
@@ -9,6 +10,7 @@ const RegisterComp = ({ navigate, setMode }) => {
     password: "",
   });
   const [error, setError] = useState(null);
+  const { backEndUrl } = useAppContext();
 
   const collectDate = (e) => {
     setError(null);
@@ -30,8 +32,13 @@ const RegisterComp = ({ navigate, setMode }) => {
         return setError("All Fields Are Required!");
       }
       const response = await axios.post(
-        "http://localhost:2000/register",
-        userRegister
+        `${backEndUrl}/register`,
+        userRegister,
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
+        },
       );
 
       setMode("login");

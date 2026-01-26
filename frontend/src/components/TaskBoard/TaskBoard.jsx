@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import TaskCard from "../TaskCard/TaskCard";
-import axios from "axios";
-import { decodeToken, userTokenId } from "../DecodeToken/DecodeToken.js";
+ 
 import { jwtDecode } from "jwt-decode";
+import { useAppContext } from "../../context/appContext";
 
 export const userId = "6819158080f39f9b75d3f7e3";
+
 const TaskBoard = ({ allTasks, setAllTasks, getData }) => {
+  const { backEndUrl } = useAppContext();
+  console.log("backEndUrl", backEndUrl);
+
   const decodeToken = () => {
     try {
       let token = localStorage.getItem("userTasksToken");
@@ -20,7 +24,7 @@ const TaskBoard = ({ allTasks, setAllTasks, getData }) => {
   };
 
   useEffect(() => {
-    getData(`http://localhost:2000/tasks/${decodeToken().id}/`);
+    getData(`${decodeToken().id}/`);
   }, []);
   return (
     <div className="px-5  w-full">
