@@ -1,8 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginComp from "../../components/Login/Login";
-import Register from "../Register/Register";
 import RegisterComp from "../../components/RegisterComp/RegisterComp";
 import { useAppContext } from "../../context/appContext";
 

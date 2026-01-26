@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useAppContext } from "../../context/appContext";
 
-const RegisterComp = ({ navigate, setMode }) => {
+const RegisterComp = ({  setMode }) => {
   const [userRegister, setUserRegister] = useState({
     name: "",
     age: null,

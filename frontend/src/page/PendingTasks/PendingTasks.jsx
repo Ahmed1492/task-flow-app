@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import TaskCard from "../../components/TaskCard/TaskCard";
-import NoTasks from "../../components/NoTasks/NoTasks";
-import { userTokenId } from "../../components/DecodeToken/DecodeToken";
 import { jwtDecode } from "jwt-decode";
 
 const PendingTasks = ({ allTasks, getData, setAllTasks }) => {

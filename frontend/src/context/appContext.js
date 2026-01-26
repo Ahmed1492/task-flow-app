@@ -1,11 +1,7 @@
 import { createContext, useContext, useState } from "react";
 
-
-
-
 //  Create context
 const AppContext = createContext();
-
 //  Provider component
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);

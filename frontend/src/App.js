@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import UserTaskManger from './page/userTaskManger/UserTaskManger';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import Login from './page/Login/Login';
 
 const App = () => {
