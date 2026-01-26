@@ -23,7 +23,7 @@ const UserTaskManger = () => {
       let myResponse = await axios.get(url);
       console.log(
         "response : ",
-        myResponse.data.result ? myResponse.data.result : myResponse.data
+        myResponse.data.result ? myResponse.data.result : myResponse.data,
       );
       setAllTasks(myResponse.data.result);
     } catch (error) {
@@ -32,12 +32,13 @@ const UserTaskManger = () => {
   };
 
   return (
-    <div className="flex    px-2">
-      <>
-        <div className="w-[55%]  md:w-[40%] mt-7 lg:w-[30%]  xl:w-[20%]">
+    <div className="w-full bg-red-400">
+      <div className="grid grid-cols-1 md:grid-cols-[40%_60%] lg:grid-cols-[30%_70%] xl:grid-cols-[20%_80%]">
+        <div>
           <LeftBar />
         </div>
-        <div className=" w-[100%] min-h-[93vh]   lg:w-[80%] bg-white h-full px-3 mt-7  ">
+
+        <div className="bg-white h-full px-3 mt-7">
           <Routes>
             <Route
               path="/"
@@ -55,8 +56,7 @@ const UserTaskManger = () => {
               path="/addTask"
               element={
                 <ProtectedRoute>
-                  {" "}
-                  <AddTask />{" "}
+                  <AddTask />
                 </ProtectedRoute>
               }
             />
@@ -137,7 +137,7 @@ const UserTaskManger = () => {
             {/* <Route path="/login" element={<Login />} /> */}
           </Routes>
         </div>
-      </>
+      </div>
     </div>
   );
 };

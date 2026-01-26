@@ -23,7 +23,7 @@ const TaskBoard = ({ allTasks, setAllTasks, getData }) => {
     getData(`http://localhost:2000/tasks/${decodeToken().id}/`);
   }, []);
   return (
-    <div className="px-5">
+    <div className="px-5  w-full">
       <h3 className="text-center  bg-[#6366F1] py-3 px-9 rounded  w-max m-auto text-white  font-bold text-2xl mt-2 mb-11">
         Task Board
       </h3>

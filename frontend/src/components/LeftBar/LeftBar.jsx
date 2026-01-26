@@ -35,13 +35,21 @@ const LeftBar = () => {
   const activeClass = "bg-[#3B9EEC] font-bold";
 
   return (
-    <div className="py-3 sticky top-0 h-[99vh] bg-[#6366F1] text-white min-h-[70vh]">
+    <div className="py-3 sticky top-0  md:h-[99vh] bg-[#6366F1] text-white md:min-h-[70vh]">
       <div className="flex mb-[3rem] justify-center mt-6 items-center gap-2">
         <img className="w-6" src="/taskManger.svg" alt="" />
         <h3 className="text-center font-bold text-lg">Task Manger</h3>
       </div>
-
-      <ul className="ml-8 font-semibold flex flex-col gap-3">
+      <ul
+        className="
+  ml-3 md:ml-8
+  font-semibold
+  grid grid-cols-2
+  sm:grid-cols-4
+  md:grid-cols-1
+  gap-3
+"
+      >
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -120,7 +128,7 @@ const LeftBar = () => {
           <button>Log Out</button>
         </li>
 
-        <li className="mt-[8rem] flex justify-center pe-5 self-start w-[11rem] rounded-lg font-bold text-lg bg-blue-500 py-3 px-3">
+        <li className=" md:mt-[8rem] flex justify-center items-center w-full pe-5 self-start md:w-[11rem] rounded-lg font-bold text-lg bg-blue-500 py-3 px-3">
           <p>{decodeToken()?.name || "NAN"}</p>
         </li>
       </ul>

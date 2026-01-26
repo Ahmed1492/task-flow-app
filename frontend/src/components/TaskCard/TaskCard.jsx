@@ -77,12 +77,21 @@ const TaskCard = ({ allTasks, setAllTasks }) => {
   // if (allTasks.length == 0) return <NoTasks />;
 
   return (
-    <div className="w-full flex flex-wrap py-4 px-[2rem] gap-y-[2rem] justify-around gap-4 ">
+    <div
+      className="
+  w-full
+  grid
+  [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]
+  gap-6
+  py-4
+  px-8
+"
+    >
       {allTasks?.map((task, index) => (
         <div
           // onClick={() => console.log(task)}
           key={index}
-          className="flex relative shadow-2xl  flex-col gap-4 w-[100%] lg:w-[18rem] xl:w-[18rem]   p-4 rounded-2xl "
+          className="flex relative shadow-2xl  flex-col gap-4  w-full  p-4 rounded-2xl "
         >
           <img
             onClick={() => handleOpen(task)}
@@ -112,7 +121,11 @@ const TaskCard = ({ allTasks, setAllTasks }) => {
             className={` ${getStatusColor(task)} 
             )}-300 h-[9rem] r mt-5 rounded-xl relative flex justify-center items-center`}
           >
-            <img className="absolute w-[19px]  right-3 top-3  " src="/quote.svg" alt="" />
+            <img
+              className="absolute w-[19px]  right-3 top-3  "
+              src="/quote.svg"
+              alt=""
+            />
             <h3
               className={`${getTextColor(task)} font-bold w-[80%] text-center`}
             >
@@ -145,7 +158,7 @@ const TaskCard = ({ allTasks, setAllTasks }) => {
               <span className="text-sm text-slate-600">park roy</span>
               <span
                 className={`${getTextColor(task)} ${getStatusColor(
-                  task
+                  task,
                 )} rounded-2xl px-4 py-2 font-bold text-sm`}
               >
                 {task?.type?.toUpperCase() || "NAN"}
