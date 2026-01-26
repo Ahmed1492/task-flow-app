@@ -32,7 +32,7 @@ const UserTaskManger = () => {
   };
 
   return (
-    <div className="w-full bg-red-400">
+    <div className="w-full ">
       <div className="grid grid-cols-1 md:grid-cols-[40%_60%] lg:grid-cols-[30%_70%] xl:grid-cols-[20%_80%]">
         <div>
           <LeftBar />
