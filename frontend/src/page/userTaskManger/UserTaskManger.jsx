@@ -1,142 +1,64 @@
-import  {  useState } from "react";
+import { useState, useCallback } from "react";
 import LeftBar from "../../components/LeftBar/LeftBar";
 import TaskBoard from "../../components/TaskBoard/TaskBoard";
-import {  Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import AddTask from "../AddTask/AddTask";
 import CompletedTasks from "../CompletedTasks/CompletedTasks";
 import DeferredTasks from "../DeferredTasks/DeferredTasks";
 import DeployedTasks from "../DeployedTasks/DeployedTasks";
 import InProgressTasks from "../InProgressTasks/InProgressTasks";
 import PendingTasks from "../PendingTasks/PendingTasks";
+import Profile from "../Profile/Profile";
 import axios from "axios";
 import UpdateTask from "../UpdateTask/UpdateTask";
 import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute";
+import NotFoundPage from "../../components/NotFoundPage/NotFoundPage";
 import { useAppContext } from "../../context/appContext";
 
 const UserTaskManger = () => {
   const [allTasks, setAllTasks] = useState([]);
+  const [loadingTasks, setLoadingTasks] = useState(false);
   const { backEndUrl } = useAppContext();
 
-  const getData = async (endPoint) => {
+  const getData = useCallback(async (endPoint) => {
+    setLoadingTasks(true);
+    setAllTasks([]);
     try {
-      let myResponse = await axios.get(`${backEndUrl}/tasks/${endPoint}`, {
-        headers: {
-          "ngrok-skip-browser-warning": "true",
-        },
+      const res = await axios.get(`${backEndUrl}/tasks/${endPoint}`, {
+        headers: { "ngrok-skip-browser-warning": "true" },
       });
-      console.log(
-        "response : ",
-        myResponse.data.result ? myResponse.data.result : myResponse.data,
-      );
-      setAllTasks(myResponse.data.result);
+      setAllTasks(res.data.result);
     } catch (error) {
-      setAllTasks(error);
+      setAllTasks(error instanceof Error ? error : new Error("Failed to fetch tasks"));
+    } finally {
+      setLoadingTasks(false);
     }
-  };
+  }, [backEndUrl]);
+
+  const sharedProps = { getData, allTasks, setAllTasks, loadingTasks };
 
   return (
-    <div className="w-full ">
-      <div className="grid grid-cols-1 md:grid-cols-[40%_60%] lg:grid-cols-[30%_70%] xl:grid-cols-[20%_80%]">
-        <div>
-          <LeftBar />
-        </div>
-
-        <div className="bg-white h-full px-3 mt-7">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <TaskBoard
-                    getData={getData}
-                    allTasks={allTasks}
-                    setAllTasks={setAllTasks}
-                  />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/addTask"
-              element={
-                <ProtectedRoute>
-                  <AddTask />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/completedTasks"
-              element={
-                <ProtectedRoute>
-                  <CompletedTasks
-                    getData={getData}
-                    setAllTasks={setAllTasks}
-                    allTasks={allTasks}
-                  />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/deferredTasks"
-              element={
-                <ProtectedRoute>
-                  <DeferredTasks
-                    getData={getData}
-                    setAllTasks={setAllTasks}
-                    allTasks={allTasks}
-                  />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/deployedTasks"
-              element={
-                <ProtectedRoute>
-                  <DeployedTasks
-                    getData={getData}
-                    setAllTasks={setAllTasks}
-                    allTasks={allTasks}
-                  />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/inProgressTasks"
-              element={
-                <ProtectedRoute>
-                  <InProgressTasks
-                    allTasks={allTasks}
-                    setAllTasks={setAllTasks}
-                    getData={getData}
-                  />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/pendingTasks"
-              element={
-                <ProtectedRoute>
-                  <PendingTasks
-                    getData={getData}
-                    setAllTasks={setAllTasks}
-                    allTasks={allTasks}
-                  />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/updateTask"
-              element={
-                <ProtectedRoute>
-                  <UpdateTask setAllTasks={setAllTasks} allTasks={allTasks} />
-                </ProtectedRoute>
-              }
-            />
-            {/* <Route path="/register" element={<Register />} /> */}
-            <Route path="*" element={<div>not found</div>} />
-            {/* <Route path="/login" element={<Login />} /> */}
-          </Routes>
-        </div>
+    <div className="flex min-h-screen bg-[#f7f8fc] dark:bg-[#0f172a] transition-colors duration-300">
+      {/* Sidebar */}
+      <div className="w-16 md:w-56 flex-shrink-0">
+        <LeftBar />
       </div>
+
+      {/* Main content */}
+      <main className="flex-1 overflow-y-auto min-h-screen">
+        <Routes>
+          <Route path="/"                element={<ProtectedRoute><TaskBoard       {...sharedProps} /></ProtectedRoute>} />
+          <Route path="/addTask"         element={<ProtectedRoute><AddTask /></ProtectedRoute>} />
+          <Route path="/completedTasks"  element={<ProtectedRoute><CompletedTasks  {...sharedProps} /></ProtectedRoute>} />
+          <Route path="/deferredTasks"   element={<ProtectedRoute><DeferredTasks   {...sharedProps} /></ProtectedRoute>} />
+          <Route path="/deployedTasks"   element={<ProtectedRoute><DeployedTasks   {...sharedProps} /></ProtectedRoute>} />
+          <Route path="/inProgressTasks" element={<ProtectedRoute><InProgressTasks {...sharedProps} /></ProtectedRoute>} />
+          <Route path="/pendingTasks"    element={<ProtectedRoute><PendingTasks    {...sharedProps} /></ProtectedRoute>} />
+          <Route path="/updateTask"      element={<ProtectedRoute><UpdateTask setAllTasks={setAllTasks} allTasks={allTasks} /></ProtectedRoute>} />
+          <Route path="/profile"         element={<ProtectedRoute><Profile allTasks={allTasks} /></ProtectedRoute>} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </main>
     </div>
   );
 };

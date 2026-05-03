@@ -1,33 +1,22 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import TaskCard from "../../components/TaskCard/TaskCard";
-
+import PageHeader from "../../components/PageHeader/PageHeader";
 import { jwtDecode } from "jwt-decode";
 
-const DeferredTasks = ({ allTasks, getData, setAllTasks }) => {
+const DeferredTasks = ({ allTasks, getData, setAllTasks, loadingTasks }) => {
   const decodeToken = () => {
     try {
-      let token = localStorage.getItem("userTasksToken");
-      if (token) {
-        const decoded = jwtDecode(token);
-        return decoded;
-      }
-    } catch (error) {
-      console.error("Invalid token:", error);
-      return null;
-    }
+      const token = localStorage.getItem("userTasksToken");
+      return token ? jwtDecode(token) : null;
+    } catch { return null; }
   };
 
-  useEffect(() => {
-    getData(`${decodeToken().id}/deferred`);
-  }, [getData]);
+  useEffect(() => { getData(`${decodeToken().id}/deferred`); }, [getData]);
 
   return (
-    <div>
-      <h3 className="text-center  bg-[#D1D5DB] py-3 px-9 rounded  w-max m-auto text-white font-bold text-2xl mt-2 mb-11">
-        Deferred Tasks
-      </h3>
-
-      <TaskCard setAllTasks={setAllTasks} allTasks={allTasks} />
+    <div className="px-4 py-6 fade-up">
+      <PageHeader type="deferred" count={Array.isArray(allTasks) ? allTasks.length : 0} />
+      <TaskCard setAllTasks={setAllTasks} allTasks={allTasks} loadingTasks={loadingTasks} />
     </div>
   );
 };
