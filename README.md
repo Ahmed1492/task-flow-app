@@ -146,7 +146,7 @@ npm start
 2. Import the **`frontend`** folder (or set root directory to `frontend`)
 3. Add environment variable:
    - `REACT_APP_BACKEND_URL` → your backend Vercel URL
-4. Build command: `npm run build` (already set to `CI=false`)
+4. Build command: `npm run build` (uses `cross-env CI=false` — warnings won't fail the build)
 5. Output directory: `build`
 6. Deploy — `vercel.json` handles SPA routing automatically
 
