@@ -4,14 +4,15 @@ A full-stack task management application built with React, Node.js, Express, and
 
 ---
 
-## 🚀 Live Demo
 
-> Add your Vercel URLs here after deployment
+## 🎥 Demo  
 
-- **Frontend:** `https://your-frontend.vercel.app`
-- **Backend API:** `https://your-backend.vercel.app`
+[![Live Demo](https://img.shields.io/badge/View%20Live-Vercel-blue?style=for-the-badge&logo=vercel)](https://user-tasks-manager.vercel.app/)
+
+[![Recorded Demo](https://img.shields.io/badge/Watch%20Demo-LinkedIn-green?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/feed/update/urn:li:activity:7326820125855080449/)
 
 ---
+
 
 ## ✨ Features
 
